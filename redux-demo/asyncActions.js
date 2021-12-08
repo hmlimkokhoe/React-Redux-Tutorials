@@ -3,16 +3,17 @@
  * Axios - for API endpoint requests
  * redux-thunk - define async action creators, works as middleware for redux store
  */
-
 const redux = require('redux')
 const thunkMiddleware = require('redux-thunk').default
 const axios = require('axios')
-const createStore = redux.createStore
-const applyMiddleware = redux.applyMiddleware
 
 /**
- * STATE DEFINITION
+ * STATE & STATIC VAR DEFINITION
  */
+const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
+const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
+const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE';
+
 const initialState = {
   loading: false,
   users: [],
@@ -20,37 +21,31 @@ const initialState = {
 }
 
 /**
- * ACTIONS DEFINITION
- */
-const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST'
-const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS'
-const FETCH_USERS_FAILURE = 'FETCH_USERS_FAILURE'
-
-const fetchUsersRequest = () => {
-  return {
-    type: FETCH_USERS_REQUEST
-  }
-}
-
-const fetchUsersSuccess = users => {
-  return {
-    type: FETCH_USERS_SUCCESS,
-    payload: users
-  }
-}
-
-const fetchUsersFailure = error => {
-  return {
-    type: FETCH_USERS_FAILURE,
-    payload: error
-  }
-}
-
-/**
- * Action creator, so it returns a action
+ * Action creator, so it returns a action. This is dispatched to the store.
  * @returns non-pure function, so it can have side effects like async API calls. it can also dispatch actions thanks to dispatch param
  */
 const fetchUsers = () => {
+
+  const fetchUsersRequest = () => {
+    return {
+      type: FETCH_USERS_REQUEST
+    }
+  }
+  
+  const fetchUsersSuccess = users => {
+    return {
+      type: FETCH_USERS_SUCCESS,
+      payload: users
+    }
+  }
+  
+  const fetchUsersFailure = error => {
+    return {
+      type: FETCH_USERS_FAILURE,
+      payload: error
+    }
+  }
+
   return function (dispatch) {
     dispatch(fetchUsersRequest()) //set loading to true
     axios
@@ -66,8 +61,15 @@ const fetchUsers = () => {
   }
 }
 
+/**
+ * Initialize state and define actions. Required for createStore function
+ * @param {*} state 
+ * @param {*} action 
+ * @returns 
+ */
 const reducer = (state = initialState, action) => {
   console.log(action.type)
+  console.log('====')
 
   /**
    * MATCH ACTION FROM API CALL
@@ -97,6 +99,9 @@ const reducer = (state = initialState, action) => {
   }
 }
 
+const createStore = redux.createStore
+const applyMiddleware = redux.applyMiddleware
 const store = createStore(reducer, applyMiddleware(thunkMiddleware)) //pass middleware to createStore function, allows method to return function instead of action object
-store.subscribe(() => { console.log(store.getState()) })
+
+store.subscribe(() => { console.log(store.getState()) }) //subscribe is state listener
 store.dispatch(fetchUsers()) //dispatch async action creator
