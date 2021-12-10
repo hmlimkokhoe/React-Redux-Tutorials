@@ -82,6 +82,7 @@ const reducer = (state = initialState, action) => {
     }
   }
 
+  //use axios api to send request
   return function (dispatch) {
     dispatch(fetchUsersRequest()) //set loading to true
     axios

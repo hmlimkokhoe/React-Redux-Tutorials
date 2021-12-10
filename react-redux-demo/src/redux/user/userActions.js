@@ -5,6 +5,10 @@ import {
   FETCH_USERS_FAILURE
 } from './userTypes'
 
+/**
+ * Equivalent to fetchUsers() in redux-demo. It dispatches to store
+ * @returns 
+ */
 export const fetchUsers = () => {
   return (dispatch) => {
     dispatch(fetchUsersRequest())

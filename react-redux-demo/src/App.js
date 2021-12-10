@@ -10,8 +10,9 @@ import store from './redux/store'
 import UsersContainer from './components/UsersContainer'
 
 function App () {
+  //wrapped elements in Provider may access the store using connect()
   return (
-    <Provider store={store}>
+    <Provider store={store}> 
       <div className='App'>
         <UsersContainer />
         {/* <ItemContainer cake />
