@@ -10,6 +10,12 @@ const initialState = {
   error: ''
 }
 
+/**
+ * Updates state depending on action object
+ * @param {} state 
+ * @param {*} action 
+ * @returns 
+ */
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_USERS_REQUEST:

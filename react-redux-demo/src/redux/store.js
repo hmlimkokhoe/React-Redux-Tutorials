@@ -5,9 +5,12 @@ import thunk from 'redux-thunk'
 
 import rootReducer from './rootReducer'
 
+/**
+ * rootReducers includes multiplie reducer functions
+ */
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(logger, thunk))
+  composeWithDevTools(applyMiddleware(thunk)) //logger is optional
 )
 
 export default store

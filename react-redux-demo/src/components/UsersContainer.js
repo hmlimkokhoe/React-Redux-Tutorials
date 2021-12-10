@@ -2,10 +2,22 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { fetchUsers } from '../redux'
 
-function UsersContainer ({ userData, fetchUsers }) {
+/**
+ * fetchUsers() is defined here and mapped to React component
+ * 
+ * Returns list of users. Depending on our state object userData, it returns 
+ * only a header saying 'loading' or list of users
+ * @param {*} userData: object by mapStateToProps, 
+ *            fetchUsers: function by mapDispatchToProps
+ * @returns 
+ */
+function UsersContainer ({ userData, fetchUsers }) { //destructure fetchUsers from props
+  
+  //only dispatch fetchUsers once
   useEffect(() => {
     fetchUsers()
   }, [])
+
   return userData.loading ? (
     <h2>Loading</h2>
   ) : userData.error ? (
@@ -16,24 +28,37 @@ function UsersContainer ({ userData, fetchUsers }) {
       <div>
         {userData &&
           userData.users &&
-          userData.users.map(user => <p>{user.name}</p>)}
+          userData.users.map((user, i) => <p key={i}>{user.name}</p>)}
       </div>
     </div>
   )
 }
 
 const mapStateToProps = state => {
-  return {
+  const obj = {
     userData: state.user
   }
+  
+  console.log('mapStateToProps()');
+  console.log(obj);
+  console.log('====');
+  
+  return obj
 }
 
 const mapDispatchToProps = dispatch => {
-  return {
-    fetchUsers: () => dispatch(fetchUsers())
+  const obj = {
+      fetchUsers: () => dispatch(fetchUsers())
   }
+
+  console.log('mapDispatchToProps()');
+  console.log(obj);
+  console.log('====');
+
+  return obj
 }
 
+//make props functions usable for component
 export default connect(
   mapStateToProps,
   mapDispatchToProps
