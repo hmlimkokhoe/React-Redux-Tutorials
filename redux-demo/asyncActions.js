@@ -20,9 +20,12 @@ const initialState = {
 
 /**
  * Initialize state and define actions. Required for createStore function
- * @param {*} state 
- * @param {*} action 
- * @returns 
+ * 
+ * Concept: A reducer accepts an accumulation and value to return a new accumulation.
+ * 
+ * @param {*} state (accumulated value)
+ * @param {*} action (value)
+ * @returns new accumulation based on action
  */
 const reducer = (state = initialState, action) => {
   console.log(action.type)
@@ -57,7 +60,7 @@ const reducer = (state = initialState, action) => {
 }
 
 /**
- * Action creator, so it returns a action. This is dispatched to the store.
+ * Action creator, so it returns an action object. This is dispatched to the store to trigger state change
  * @returns non-pure function, so it can have side effects like async API calls. it can also dispatch actions thanks to dispatch param
  */
  const fetchUsers = () => {
