@@ -6,11 +6,11 @@ import thunk from 'redux-thunk'
 import rootReducer from './rootReducer'
 
 /**
- * rootReducers includes multiplie reducer functions
+ * rootReducers includes multiple reducer functions
  */
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk)
+  applyMiddleware(thunk) // store enhancer; this allows us to perform async operations
   //composeWithDevTools(applyMiddleware(thunk)) //logger is optional
 )
 
