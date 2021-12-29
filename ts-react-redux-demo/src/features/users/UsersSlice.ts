@@ -3,14 +3,12 @@ import axios from "axios"
 import {AppThunk} from '../../store/index'
 
 export interface User {
-    name: string,
-    email: string,
-    adress: string
+    name: string
 }
 
 export interface UsersState {
     loading: boolean,
-    users: User[],
+    users: User[], //better than object[]
     error?: any
 }
 
@@ -20,6 +18,9 @@ const initialState: UsersState = {
     error: ""
 }
 
+/**
+ * Reducer function using createSlice from RTK
+ */
 const usersSlice = createSlice({
     name: "users",
     initialState,
@@ -42,10 +43,12 @@ export default usersSlice.reducer;
 
 export const usersSelector = (state: {usersStore: UsersState}) => state.usersStore;
 
-//Async actions with thunk 'AppThunk' middleware
-
+/**
+ * Async actions with thunk 'AppThunk' middleware
+ * @returns 
+ */
 export const getUsers = (): AppThunk => {
-    return async dispatch => {
+    return async (dispatch) => {
         dispatch(setUsersFetchRequest(true))
         try {
             const url: string = "https://jsonplaceholder.typicode.com/users";

@@ -17,11 +17,11 @@ function UsersContainer() {
   ) : (
       <div>
           <h2>Users List</h2>
-          <div>
+          <ul>
               {users && users.map(
-                  (user, i) => <p key={i}>{user.name}</p>)
+                  (user, i) => <li key={i}>{user.name}</li>)
               }
-          </div>
+          </ul>
       </div>
   )
 }
