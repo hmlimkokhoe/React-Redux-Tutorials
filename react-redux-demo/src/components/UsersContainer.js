@@ -35,6 +35,9 @@ function UsersContainer ({ userData, fetchUsers }) { //destructure fetchUsers fr
   )
 }
 
+/*
+ * Map state data as props for consumption by Component
+ */
 const mapStateToProps = state => {
   const obj = {
     userData: state.user
@@ -47,6 +50,9 @@ const mapStateToProps = state => {
   return obj
 }
 
+/*
+ * Map dispatching actions to store
+ */
 const mapDispatchToProps = dispatch => {
   const obj = {
       fetchUsers: () => dispatch(fetchUsers())
@@ -59,7 +65,6 @@ const mapDispatchToProps = dispatch => {
   return obj
 }
 
-//make props functions usable for component
 export default connect(
   mapStateToProps,
   mapDispatchToProps
