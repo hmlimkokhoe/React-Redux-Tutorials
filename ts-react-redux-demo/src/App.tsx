@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import UsersContainer from './components/UsersContainer';
 import {store} from "./store/index";
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
       <Provider store={store}>
